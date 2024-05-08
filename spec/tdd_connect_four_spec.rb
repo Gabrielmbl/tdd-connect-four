@@ -5,7 +5,16 @@ describe ConnectFourBoard do
 		let(:board) { described_class.new }
 		context 'when there is a horizontal line win' do
 			it 'returns true' do
+				board.cells[0][0] = board.cells[0][1] = board.cells[0][2] = board.cells[0][3] = 'X'
 				expect(board.check_win).to be true
+			end
+		end
+
+		context 'when there is not a horizontal line win' do
+			it 'returns false' do
+				board.cells[0][0] = board.cells[0][1] = 'X' 
+				board.cells[0][2] = board.cells[0][3] = 'O'
+				expect(board.check_win).to be false
 			end
 		end
 	end
@@ -26,13 +35,4 @@ describe Game do
 
 	end
 
-	describe '#check_win' do
-		context 'when there is a horizontal line win' do
-			it 'returns true' do
-				expect(game.board).to receive(:check_win).and_return(true)
-				expect(game).to receive(:puts).with(/Congratulations, Player \d+! You just won the game./)
-				game.start
-			end
-		end
-	end
 end
